@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <algorithm>
 
 using namespace std;
 
@@ -97,14 +98,20 @@ vector<double> findVectorNev(vector<vector<double>> matrix, vector<double> keys,
         countKeys++;
         countSolution = 0;
         ans = 0;
-        
     }
-
+    cout << endl;
     return nev; 
 }
 
 
-
+double calcRelativeError(vector<double> solutionsVector, vector<double> solutionsVectorDouble){
+   double q = 0.0;
+   double maxSolutionsVector = *max_element(solutionsVector.begin(), solutionsVector.end());
+   for(int i=0;i<solutionsVector.size();i++){
+       q = max(q, abs(solutionsVectorDouble[i] - solutionsVector[i]));
+   }
+   return q / maxSolutionsVector;
+}
 
 
 
@@ -135,16 +142,25 @@ int main(int argc, char** argv) {
         cout << keys[i] << endl;
     }
 
+    vector<double> solutionsVector = solveLinearSystem(matrix, keys);
+	cout << "Vector of solution system: " << endl;
+	for (int i = 0; i < colLen; i++) {
+		cout << "X" << i + 1 << " = " << solutionsVector[i] << endl;
+	}
+	cout << endl;
 
-  
-    vector<double> solution = solveLinearSystem(matrix, keys);
-    cout << "Vector of solution system: " << endl;
-    for (int i = 0; i < colLen; i++) {
-        cout << "X" << i + 1 << " = " << solution[i] << endl;
-    }
+	vector<double> solutionsVectorDouble = solveLinearSystem(matrix, solutionsVector);
+	cout << "Vector of double solution system: " << endl;
+	for (int i = 0; i < colLen; i++) {
+		cout << "X" << i + 1 << " = " << solutionsVectorDouble[i] << endl;
+	}
+	cout << endl;
+
+	double q = calcRelativeError(solutionsVector, solutionsVectorDouble);
+	cout << "Relative error: " << q << endl;
     cout << endl;
 
-    vector<double> nev = findVectorNev(matrix, keys, solution);
+    vector<double> nev = findVectorNev(matrix, keys, solutionsVector);
     cout << "Vector of discrepancy(невязки): ";
     for (int i = 0; i < colLen; i++) {
         cout << nev[i] << " ";
