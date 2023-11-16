@@ -166,6 +166,9 @@ int main(int argc, char** argv) {
         cout << nev[i] << " ";
     }
     cout << endl;
+
+    cout << "Standard of discrepancy(невязки): ";
+    cout << max(nev[0], max(nev[1], nev[2])); 
     return 0;
 
 }
