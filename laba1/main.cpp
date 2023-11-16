@@ -125,11 +125,11 @@ int main(int argc, char** argv) {
 		matrix.push_back(vector<double>());
 	}
 	for (int i = 0; i < colLen; i++) {
-		for (int j = 0; j < 4; j++) {
+		for (int j = 0; j < rowLen; j++) {
 			if(j == 3){
-                keys.push_back(stof(argv[i * 4 + j + 1]));
+                keys.push_back(stof(argv[i * rowLen + j + 1]));
             } else {
-                 matrix[i].push_back(stof(argv[i * 4 + j + 1]));
+                 matrix[i].push_back(stof(argv[i * rowLen + j + 1]));
             }
            
 		}
