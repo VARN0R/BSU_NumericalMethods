@@ -15,7 +15,7 @@ void printMatrix(const vector<vector<double>>& matrix) {
     }
 }
 
-vector<double> solveLinearSystem(vector<vector<double>> matrix, vector<double> keys) {
+vector<double> solveLinearSystem(vector<vector<double>> matrix,const vector<double>& keys) {
     
     for (int i = 0; i < keys.size(); i++){
         matrix[i].push_back(keys[i]); 
@@ -83,7 +83,7 @@ vector<double> solveLinearSystem(vector<vector<double>> matrix, vector<double> k
     return solution;
 }
 
-vector<double> findVectorNev(vector<vector<double>> matrix, vector<double> keys, vector<double> solution){
+vector<double> findVectorNev(vector<vector<double>> matrix, const vector<double>& keys,const vector<double>& solution){
     vector<double>nev;
     double ans = 0;
     int countSolution = 0;
@@ -104,7 +104,7 @@ vector<double> findVectorNev(vector<vector<double>> matrix, vector<double> keys,
 }
 
 
-double calcRelativeError(vector<double> solutionsVector, vector<double> solutionsVectorDouble){
+double calcRelativeError(const vector<double>& solutionsVector,const vector<double>& solutionsVectorDouble){
    double q = 0.0;
    double maxSolutionsVector = *max_element(solutionsVector.begin(), solutionsVector.end());
    for(int i=0;i<solutionsVector.size();i++){
